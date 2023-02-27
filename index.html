@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;500;700&family=Heebo:wght@400;700&family=Inconsolata:wght@700&family=Lora&family=Montserrat:wght@300;400;700&family=Open+Sans&family=PT+Serif:wght@400;700&family=Playfair+Display&family=Poppins&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="main">
+        <form action="" method="POST" class="form" id="form-1">
+            <h3 class="heading">Thành viên đăng ký</h3>
+            <p class="desc">Cùng trở thành Front End Developer ❤️</p>
+
+            <div class="spacer"></div>
+
+            <div class="form-group">
+                <label for="fullname" class="form-label">Tên đầy đủ</label>
+                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Vd: Sa Mai Bá Huy">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" placeholder="Vd: bahuy156@gmail.com">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password" class="form-label">Mật khẩu</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation" class="form-label">Xác nhận mật khẩu</label>
+                <input type="password" class="form-control" id="password_confirmation" name="password_confirmation"
+                    placeholder="Nhập lại mật khẩu">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="avatar" class="form-label">Ảnh đại diện</label>
+                <input type="file" class="form-control" id="avatar" name="avatar">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="province" class="form-label">Tỉnh / Thành Phố</label>
+                <select class="form-control" id="province" name="province">
+                    <option value="">-- Chọn Tỉnh / Thành phố --</option>
+                    <option value="HaNoi">Hà Nội</option>
+                    <option value="TPHCM">TP Hồ Chí Minh</option>
+                    <option value="HaiPhong">Hải Phòng</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="gender" class=" form-label">Giới tính</label>
+                <div class="gender">
+                    <input name="gender" type="radio" class="form-gender" value="male">
+                    <span>Nam</span>
+                </div>
+                <div class="gender">
+                    <input name="gender" type="radio" class="form-gender" value="female">
+                    <span>Nữ</span>
+                </div>
+                <div class="gender">
+                    <input name="gender" type="radio" class="form-gender" value="other">
+                    <span>Khác</span>
+                </div>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="interests" class=" form-label">Sở thích</label>
+                <div class="gender">
+                    <input name="interests" type="checkbox" class="form-interests" value="football">
+                    <span>Bóng đá</span>
+                </div>
+                <div class="gender">
+                    <input name="interests" type="checkbox" class="form-interests" value="music">
+                    <span>Âm nhạc</span>
+                </div>
+                <div class="gender">
+                    <input name="interests" type="checkbox" class="form-interests" value="other">
+                    <span>Khác</span>
+                </div>
+                <span class="form-message"></span>
+            </div>
+
+            <button class="form-submit">Đăng ký</button>
+        </form>
+    </div>
+
+    <script src="./validation.js"></script>
+
+    <script>
+
+        Validator({
+            form: '#form-1',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                // rule của fullname
+                Validator.isRequired('#fullname'),
+
+                // rule của email
+                Validator.isRequired('#email'),
+                Validator.isEmail('#email'),
+
+                // rule của password
+                Validator.isRequired('#password'),
+                Validator.minLength('#password', 6),
+
+                //rule của avatar
+                Validator.isRequired('#avatar'),
+
+                //rule của province
+                Validator.isRequired('#province'),
+
+                // rule của password confirm
+                Validator.isRequired('#password_confirmation'),
+                Validator.isConFirmed('#password_confirmation', function () {
+                    return document.querySelector('#form-1 #password').value
+                }, 'Mật khẩu nhập lại không chính xác'),
+
+                // rule của radio
+                Validator.isRequired('input[name="gender"]'),
+
+                // rule của checkbox
+                Validator.isRequired('input[name="interests"]'),
+
+            ],
+            onSubmit: function (data) {
+                console.log(data)
+            }
+        })
+
+    </script>
+</body>
+
+</html>
